@@ -19,6 +19,8 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private Button logoutButton;
+    private EditText name;
+    private Button addValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         logoutButton = findViewById(R.id.logoutButtonId);
+        name = findViewById(R.id.nameEditTextId);
+        addValue = findViewById(R.id.addValueId);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,12 +41,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("Name", "Shuvo");
-        map.put("Email", "shuvo6904@gmail.com");
+        addValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String strName = name.getText().toString();
 
-        FirebaseDatabase.getInstance().getReference().child("TestBranch").child("Multiplevalue").updateChildren(map);
-
+                if (strName.isEmpty()){
+                    Toast.makeText(MainActivity.this, "No name entered !", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    FirebaseDatabase.getInstance().getReference().child("DataSection").push().child("Name").setValue(strName);
+                }
+            }
+        });
     }
 
 }
