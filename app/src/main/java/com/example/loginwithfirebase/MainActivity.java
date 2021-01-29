@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "No name entered !", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    FirebaseDatabase.getInstance().getReference().child("DataSection").push().child("Name").setValue(strName);
+                    FirebaseDatabase.getInstance().getReference().child("Languages").child("Name").setValue(strName);
                 }
             }
         });
